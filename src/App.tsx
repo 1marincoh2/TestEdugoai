@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Home  from './pages/Home';
 import About from './pages/About';
-import Users from './pages/users';
+import Users from './pages/Users';
 
 function App() {
   return (
@@ -19,13 +19,13 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/Home">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/About">About</Link>
             </li>
             <li>
-              <Link to="/users">Users</Link>
+              <Link to="/Users">Users</Link>
             </li>
           </ul>
         </nav>
@@ -33,16 +33,16 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/home">
+        <Route path="/Home">
             <Home />
           </Route>
-        </Switch>
+          <Route path="/About">
+            <About/>
+          </Route>
+          <Route path="/Users">
+            <Users />
+          </Route>
+                  </Switch>
       </div>
     </Router>
     </div>
