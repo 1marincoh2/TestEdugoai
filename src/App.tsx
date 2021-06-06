@@ -37,7 +37,7 @@ function App() {
             <Home />
           </Route>
           <Route path="/About">
-            <About/>
+            <About />
           </Route>
           <Route path="/Users">
             <Users />
