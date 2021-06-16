@@ -55,7 +55,7 @@ const StyledTableCell = withStyles((theme: Theme) =>
             fontSize: 14,
         },
     }),
-    )(TableCell);
+)(TableCell);
 
 const StyledTableRow = withStyles((theme: Theme) =>
     createStyles({
@@ -114,8 +114,9 @@ const Home = () => {
             if (Datepersons.id === persons.id) {
                 Datepersons.name = persons.name;
                 Datepersons.lastname = persons.lastname;
-                // @ts-ignore
+                Datepersons.lastname2 = persons.lastname2;
                 Datepersons.age = persons.age;
+                Datepersons.kilograms = persons.kilograms;
             }
         })
         setDate(NuevaDate);
@@ -196,7 +197,7 @@ const Home = () => {
                         name='kilograms'
                         label='Peso(kg)'
                         fullWidth
-                        value={persons ? persons.kilograms: ''}
+                        value={persons ? persons.kilograms : ''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -320,10 +321,10 @@ const Home = () => {
                     />
                     <TextField
                         variant='outlined'
-                        name='lastname'
+                        name='lastname2'
                         label='Apellido Materno'
                         fullWidth
-                        value={persons && persons.lastname}
+                        value={persons && persons.lastname2}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -387,7 +388,7 @@ const Home = () => {
                     <DialogTitle id='customized-dialog-title'>
                         Esta seguro que desea Eliminar esta informacion
                     </DialogTitle>
-                    <Typography  align='center' variant='h3'>{persons && persons.name}</Typography>
+                    <Typography align='center' variant='h3'>{persons && persons.name}</Typography>
                     <DialogActions>
                         <Button
 
