@@ -260,32 +260,32 @@ const Home = () => {
 
                             <TableBody>
                                 {Date.map(elemento => (
-                                    <TableRow key={elemento.id}>
-                                        <TableCell component="th" scope="row">
+                                    <StyledTableRow key={elemento.id}>
+                                        <StyledTableCell component="th" scope="row">
                                             {elemento.name}
-                                        </TableCell>
-                                        <TableCell align="right">
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">
                                             {elemento.lastname}
-                                        </TableCell>
-                                        <TableCell align="right">
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">
                                             {elemento.lastname2}
-                                        </TableCell>
-                                        <TableCell align="right">
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">
                                             {elemento.age}
-                                        </TableCell>
-                                        <TableCell align="right">
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">
                                             {elemento.kilograms} KG
-                                        </TableCell>
-                                        <TableCell align="center">
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
 
                                             <EditIcon color="primary" onClick={() => person(elemento, 'Editar')}/>
 
 
                                             <DeleteIcon color="secondary" onClick={() => person(elemento, 'Eliminar')}/>
 
-                                        </TableCell>
+                                        </StyledTableCell>
 
-                                    </TableRow>
+                                    </StyledTableRow>
                                 ))}
                             </TableBody>
 
