@@ -22,6 +22,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add'
+import {infoPerson} from "../../types/usertype/infoPerson.type";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -71,7 +72,7 @@ const Home = () => {
 
     const classes = useStyles();
 
-    const Datepersons = [
+    const Datepersons:infoPerson[] = [
         {id: 1, name: 'jose alberto', lastname: 'marin', lastname2: 'coh', age: 28, kilograms: 67.8},
         {id: 2, name: 'alina sayuri', lastname: 'marin ', lastname2: 'canul', age: 7, kilograms: 4.3},
         {id: 3, name: 'maria beatriz', lastname: 'canul', lastname2: 'tah', age: 24, kilograms: 6.0},
@@ -79,12 +80,12 @@ const Home = () => {
         {id: 5, name: 'karen alexia', lastname: 'tah', lastname2: 'montejo', age: 4, kilograms: 3.9},
         {id: 6, name: 'karen alexia2a', lastname: 'tah', lastname2: 'montejo', age: 4, kilograms: 3.9},]
 
-    const [Date, setDate] = useState(Datepersons);
+    const [persons, setpersons] = useState<infoPerson[]>(Datepersons);
     const [Insertar, setInsertar] = useState(false);
     const [Editar, setEditar] = useState(false);
     const [Eliminar, setEliminar] = useState(false);
 
-    const [persons, setPersons] = useState({
+    const [person, setPerson] = useState<infoPerson>({
         id: 0,
         name: '',
         lastname: '',
@@ -93,52 +94,52 @@ const Home = () => {
         kilograms: 0,
     });
 
-    const person = (elemento: any, caso: any) => {
-        setPersons(elemento);
+    const persona = (elemento: infoPerson, caso: any) => {
+        setPerson(elemento);
         (caso === 'Editar') ? setEditar(true) : setEliminar(true)
     };
 
 
-    const handleChange = (e: any) => {
+    const handleChange = (e:any) => {
         const {name, value} = e.target;
-        setPersons((prevState) => ({
+        setPerson((prevState) => ({
             ...prevState,
             [name]: value
         }))
-        console.log(persons);
+        console.log(person);
     }
 
     const editar = () => {
-        const NuevaDate = Date;
+        const NuevaDate = Datepersons;
         NuevaDate.map(Datepersons => {
-            if (Datepersons.id === persons.id) {
-                Datepersons.name = persons.name;
-                Datepersons.lastname = persons.lastname;
-                Datepersons.lastname2 = persons.lastname2;
-                Datepersons.age = persons.age;
-                Datepersons.kilograms = persons.kilograms;
+            if (Datepersons.id === person.id) {
+                Datepersons.name = person.name;
+                Datepersons.lastname = person.lastname;
+                Datepersons.lastname2 = person.lastname2;
+                Datepersons.age = person.age;
+                Datepersons.kilograms = person.kilograms;
             }
         })
-        setDate(NuevaDate);
+        setpersons(NuevaDate);
         setEditar(false);
     }
     const eliminar = () => {
-        setDate(Date.filter(data => data.id !== persons.id));
+        setpersons(persons.filter(data => data.id !== person.id));
         setEliminar(false);
     }
     const OpenInsertat = () => {
         // @ts-ignore
-        setPersons(null);
+        setPerson(null);
         setInsertar(true);
     }
 
     const insertar = () => {
 
-        const agregardata = persons;
-        agregardata.id = Date[Date.length - 1].id + 1;
-        const newDate = Date;
+        const agregardata = person;
+        agregardata.id = persons[persons.length - 1].id + 1;
+        const newDate = persons;
         newDate.push(agregardata);
-        setDate(newDate);
+        setpersons(newDate);
         setInsertar(false);
     }
 
@@ -157,7 +158,7 @@ const Home = () => {
                         variant='outlined'
                         name='name'
                         label='Nombre'
-                        value={persons ? persons.name : ''}
+                        value={person ? person.name : ''}
                         fullWidth
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
@@ -169,7 +170,7 @@ const Home = () => {
                         name='lastname'
                         label='Apellido Paterno'
                         fullWidth
-                        value={persons ? persons.lastname : ''}
+                        value={person ? person.lastname : ''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -178,7 +179,7 @@ const Home = () => {
                         name='lastname2'
                         label='Apellido Materno'
                         fullWidth
-                        value={persons ? persons.lastname2 : ''}
+                        value={person ? person.lastname2 : ''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -188,7 +189,7 @@ const Home = () => {
                         name='age'
                         label='Edad'
                         fullWidth
-                        value={persons ? persons.age : ''}
+                        value={person ? person.age : ''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -197,7 +198,7 @@ const Home = () => {
                         name='kilograms'
                         label='Peso(kg)'
                         fullWidth
-                        value={persons ? persons.kilograms : ''}
+                        value={person ? person.kilograms : ''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -259,7 +260,7 @@ const Home = () => {
                             </TableHead>
 
                             <TableBody>
-                                {Date.map(elemento => (
+                                {persons.map(elemento => (
                                     <StyledTableRow key={elemento.id}>
                                         <StyledTableCell component="th" scope="row">
                                             {elemento.name}
@@ -278,10 +279,10 @@ const Home = () => {
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
 
-                                            <EditIcon color="primary" onClick={() => person(elemento, 'Editar')}/>
+                                            <EditIcon color="primary" onClick={() => persona(elemento, 'Editar')}/>
 
 
-                                            <DeleteIcon color="secondary" onClick={() => person(elemento, 'Eliminar')}/>
+                                            <DeleteIcon color="secondary" onClick={() => persona(elemento, 'Eliminar')}/>
 
                                         </StyledTableCell>
 
@@ -303,7 +304,7 @@ const Home = () => {
                         variant='outlined'
                         name='name'
                         label='Nombre'
-                        value={persons && persons.name}
+                        value={person && person.name}
                         fullWidth
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
@@ -315,7 +316,7 @@ const Home = () => {
                         name='lastname'
                         label='Apellido Paterno'
                         fullWidth
-                        value={persons && persons.lastname}
+                        value={person && person.lastname}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -324,7 +325,7 @@ const Home = () => {
                         name='lastname2'
                         label='Apellido Materno'
                         fullWidth
-                        value={persons && persons.lastname2}
+                        value={person && person.lastname2}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -333,7 +334,7 @@ const Home = () => {
                         name='age'
                         label='Edad'
                         fullWidth
-                        value={persons && persons.age}
+                        value={person && person.age}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -342,7 +343,7 @@ const Home = () => {
                         name='kilograms'
                         label='Peso(kg)'
                         fullWidth
-                        value={persons && persons.kilograms}
+                        value={person && person.kilograms}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -388,7 +389,7 @@ const Home = () => {
                     <DialogTitle id='customized-dialog-title'>
                         Esta seguro que desea Eliminar esta informacion
                     </DialogTitle>
-                    <Typography align='center' variant='h3'>{persons && persons.name}</Typography>
+                    <Typography align='center' variant='h3'>{person && person.name}</Typography>
                     <DialogActions>
                         <Button
 
