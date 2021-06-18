@@ -23,6 +23,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add'
 import {infoPerson} from "../../types/usertype/infoPerson.type";
+import { useFormik } from 'formik';
+import {values} from "mobx";
+
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -133,7 +137,7 @@ const Home = () => {
         setInsertar(true);
     }
 
-    const insertar = () => {
+    const insertar = (vuales:infoPerson) => {
 
         const agregardata = person;
         agregardata.id = persons[persons.length - 1].id + 1;
@@ -142,6 +146,16 @@ const Home = () => {
         setpersons(newDate);
         setInsertar(false);
     }
+
+        const formik = useFormik({
+            initialValues: {person},
+            onSubmit: (vuales: infoPerson | any) => {
+                alert(JSON.stringify(vuales, null, 2));
+                console.log(values)
+                insertar(vuales)
+            }
+
+        });
 
 
     return (
@@ -153,12 +167,12 @@ const Home = () => {
                     Agregando Datos </DialogTitle>
                 <DialogContent dividers>
 
-
+                     <form onSubmit={formik.handleSubmit}>
                     <TextField
                         variant='outlined'
                         name='name'
                         label='Nombre'
-                        value={person ? person.name : ''}
+                        value={person ? person.name:''}
                         fullWidth
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
@@ -170,7 +184,7 @@ const Home = () => {
                         name='lastname'
                         label='Apellido Paterno'
                         fullWidth
-                        value={person ? person.lastname : ''}
+                        value={person ? person.lastname:''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -179,7 +193,7 @@ const Home = () => {
                         name='lastname2'
                         label='Apellido Materno'
                         fullWidth
-                        value={person ? person.lastname2 : ''}
+                        value={person ? person.lastname2:''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -189,7 +203,7 @@ const Home = () => {
                         name='age'
                         label='Edad'
                         fullWidth
-                        value={person ? person.age : ''}
+                        value={person ? person.age :''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -198,7 +212,7 @@ const Home = () => {
                         name='kilograms'
                         label='Peso(kg)'
                         fullWidth
-                        value={person ? person.kilograms : ''}
+                        value={person ? person.kilograms:''}
                         style={{marginTop: '8px', marginLeft: '8px', paddingRight: '15px'}}
                         onChange={handleChange}
                     />
@@ -207,11 +221,11 @@ const Home = () => {
                         <Button
 
                             size='large'
-                            type='submit'
+                            type="submit"
                             style={{marginTop: '15px'}}
                             variant='contained'
                             color='primary'
-                            onClick={() => insertar()}
+
                         >
                             Insertar
 
@@ -232,7 +246,7 @@ const Home = () => {
 
                         </Button>
                     </DialogActions>
-
+                     </form>
                 </DialogContent>
 
             </Dialog>
